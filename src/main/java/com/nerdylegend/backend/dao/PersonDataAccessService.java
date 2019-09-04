@@ -26,7 +26,7 @@ public class PersonDataAccessService implements PersonDAO {
 
     @Override
     public List<Person> selectAllPeople() {
-        final String sql = "SELECT id, name FROM person";
+        final var sql = "SELECT id, name FROM person";
         return jdbcTemplate.query(sql, (resultSet, i) ->
                 new Person(UUID.fromString(resultSet.getString("id")), resultSet.getString("name"))
         );
@@ -34,8 +34,8 @@ public class PersonDataAccessService implements PersonDAO {
 
     @Override
     public Optional<Person> selectPersonById(UUID id) {
-        final String sql = "SELECT id, name FROM person where id=?";
-        Person person = jdbcTemplate.queryForObject(sql, new Object[]{id}, (resultSet, i) ->
+        final var sql = "SELECT id, name FROM person where id=?";
+        var person = jdbcTemplate.queryForObject(sql, new Object[]{id}, (resultSet, i) ->
                 new Person(UUID.fromString(resultSet.getString("id")), resultSet.getString("name"))
         );
         return Optional.ofNullable(person);
